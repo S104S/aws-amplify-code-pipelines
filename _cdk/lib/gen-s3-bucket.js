@@ -9,7 +9,6 @@ const CreateS3Bucket = props => {
         bucketName: bucketName.toLowerCase()
     })
 
-    //'arn:aws:lambda:us-east-2:166979434163:function:POCAmplifyCdkPipelineStack-InvokerLambda8E4E552F-Rx2G6mPcC3EC'
     const finalFunctionArn = functionArn !== undefined ? functionArn : 'TestFunction';
 
     newBucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3Notifications.LambdaDestination(
