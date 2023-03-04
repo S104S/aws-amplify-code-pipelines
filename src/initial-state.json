@@ -1,0 +1,11 @@
+{
+  "openDrawer": true,
+  "selectedTeam": null,
+  "selectedSport": 1,
+  "selectedTeamGames": [],
+  "publicUsers": [],
+  "locations": [],
+  "allTsrLocations": [],
+  "tsrSystemWideTotalReceivers": [],
+  "tsrSystemWideTotalReceiverCount": 0
+}

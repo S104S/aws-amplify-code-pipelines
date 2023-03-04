@@ -1,0 +1,14 @@
+{
+  "name": "invoker",
+  "version": "1.0.0",
+  "description": "A lambda for the pipeline to use to invoke other AWS services",
+  "main": "invoker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1301.0"
+  }
+}
