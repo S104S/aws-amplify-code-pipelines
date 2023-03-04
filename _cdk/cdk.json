@@ -15,23 +15,23 @@
     ]
   },
   "context": {
-    "region": "us-east-2",
-    "account": "559074790264",
-    "ghRepo": "rule_analytics",
-    "ghOwner": "BStenforsSDX",
+    "region": "us-west-2",
+    "account": "099583572831",
+    "ghRepo": "aws-amplify-code-pipelines",
+    "ghOwner": "S104S",
     "pipelines": [
       {
-        "name": "WhitePlainsMain",
-        "client": "WhitePlains",
+        "name": "BeachHouseMain",
+        "client": "BeachHouse",
         "branch": "main",
-        "prodAccount": "166979434163",
-        "stages": ["Dev"]
+        "prodAccount": "N/A",
+        "stages": ["DEV"]
       },
       {
-        "name": "WhitePlainsUAT",
-        "client": "WhitePlains",
-        "branch": "white_plains_prod",
-        "prodAccount": "166979434163",
+        "name": "BeachHouseUAT",
+        "client": "BeachHouse",
+        "branch": "beach_house_uat",
+        "prodAccount": "",
         "stages": ["UAT"]
       }
     ],
@@ -60,28 +60,18 @@
     "local": {
       "pipelines": [
         {
-          "name": "WhitePlains-Main",
-          "client": "WhitePlains",
+          "name": "BeachHouseMain",
+          "client": "BeachHouse",
           "branch": "main",
-          "stages": ["Dev", "Staging", "Prod"]
+          "prodAccount": "N/A",
+          "stages": ["DEV"]
         },
         {
-          "name": "McLaren-Main",
-          "client": "McLaren",
-          "branch": "main",
-          "stages": ["Dev", "Staging", "Prod"]
-        },
-        {
-          "name": "WhitePlains-UAT",
-          "client": "WhitePlains",
-          "branch": "whiteplains_prod",
-          "stages": ["UAT", "Prod"]
-        },
-        {
-          "name": "McLaren-UAT",
-          "client": "McLaren",
-          "branch": "mclaren_prod",
-          "stages": ["UAT", "Prod"]
+          "name": "BeachHouseUAT",
+          "client": "BeachHouse",
+          "branch": "beach_house_uat",
+          "prodAccount": "",
+          "stages": ["UAT"]
         }
       ],
       "vpcId": "vpc-1d54d852",
@@ -89,8 +79,8 @@
       "defaultAccount": "000000000000",
       "env": "dev",
       "ghBranch": "main",
-      "ghRepo": "amplify-via-cdk",
-      "ghOwner": "BStenforsSDX"
+      "ghRepo": "aws-amplify-code-pipelines",
+      "ghOwner": "S104S"
     }
   }
 }

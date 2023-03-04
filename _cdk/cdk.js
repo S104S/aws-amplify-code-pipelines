@@ -36,20 +36,29 @@ const MalarkeyCdkPipeline = app => {
             stack: mainStack,
             bucketName: `${pipeline.name}-prod-trigger`,
             bucketStackId: `${pipeline.name}ProdTriggerS3Bucket`,
-            functionArn: `arn:aws:lambda:${defaultRegion}:${pipeline.prodAccount}:function:${pipeline.name}ProdStarter`
+            functionArn: null
         })
 
-        const createProdInvokingLambda = CreateProdInvokingLambda(mainStack,
-            {
-                invokingBucket: prodInvokingS3Bucket.bucketName,
-                ghBranch: pipeline.branch, defaultRegion, defaultAccount});
-
-        createProdInvokingLambda.addPermission('CodePipelineInvokingLambdaPermissions', {
-            action: "lambda:InvokeFunction",
-            sourceAccount: defaultAccount,
-            sourceArn: `arn:aws:codebuild:${defaultRegion}:${defaultAccount}:build/*`,
-            principal: new iam.ServicePrincipal("codebuild.amazonaws.com")
-        })
+        // Prod triggering items if decision is to activate an organization with multiple accounts to demonstrate
+        // triggering a pipeline in a prod / different account
+        // const prodInvokingS3Bucket = CreateS3Bucket({
+        //     stack: mainStack,
+        //     bucketName: `${pipeline.name}-prod-trigger`,
+        //     bucketStackId: `${pipeline.name}ProdTriggerS3Bucket`,
+        //     functionArn: `arn:aws:lambda:${defaultRegion}:${pipeline.prodAccount}:function:${pipeline.name}ProdStarter`
+        // })
+        //
+        // const createProdInvokingLambda = CreateProdInvokingLambda(mainStack,
+        //     {
+        //         invokingBucket: prodInvokingS3Bucket.bucketName,
+        //         ghBranch: pipeline.branch, defaultRegion, defaultAccount});
+        //
+        // createProdInvokingLambda.addPermission('CodePipelineInvokingLambdaPermissions', {
+        //     action: "lambda:InvokeFunction",
+        //     sourceAccount: defaultAccount,
+        //     sourceArn: `arn:aws:codebuild:${defaultRegion}:${defaultAccount}:build/*`,
+        //     principal: new iam.ServicePrincipal("codebuild.amazonaws.com")
+        // })
 
         if(parsedEnvConfig !== undefined) {
             ghToken = parsedEnvConfig.ghToken;
@@ -198,29 +207,29 @@ const MalarkeyCdkPipeline = app => {
             })
             cdkPipelineStage.addPost(deployToProdApprovalStep);
 
-            const invokeProdTriggeringLambda = new CodeBuildStep("INVOKE PROD TRIGGERING LAMBDA", {
-                rolePolicyStatements: [
-                    new PolicyStatement({
-                        actions: ["sts:AssumeRole"],
-                        resources: [
-                            `arn:aws:iam::${defaultAccount}:role/${actionRole.roleName}`,
-                        ],
-                        effect: iam.Effect.ALLOW,
-                    }),
-                    new PolicyStatement({
-                        actions: [
-                            "lambda:*"
-                        ],
-                        effect: iam.Effect.ALLOW,
-                        resources: ["*"]
-                    })
-                ],
-                actionRole,
-                commands: [
-                    `echo ${createProdInvokingLambda.functionName}`,
-                    `aws lambda invoke --function-name ${createProdInvokingLambda.functionName} ./response.json`]
-            })
-            cdkPipelineStage.addPost(invokeProdTriggeringLambda)
+            // const invokeProdTriggeringLambda = new CodeBuildStep("INVOKE PROD TRIGGERING LAMBDA", {
+            //     rolePolicyStatements: [
+            //         new PolicyStatement({
+            //             actions: ["sts:AssumeRole"],
+            //             resources: [
+            //                 `arn:aws:iam::${defaultAccount}:role/${actionRole.roleName}`,
+            //             ],
+            //             effect: iam.Effect.ALLOW,
+            //         }),
+            //         new PolicyStatement({
+            //             actions: [
+            //                 "lambda:*"
+            //             ],
+            //             effect: iam.Effect.ALLOW,
+            //             resources: ["*"]
+            //         })
+            //     ],
+            //     actionRole,
+            //     commands: [
+            //         `echo ${createProdInvokingLambda.functionName}`,
+            //         `aws lambda invoke --function-name ${createProdInvokingLambda.functionName} ./response.json`]
+            // })
+            // cdkPipelineStage.addPost(invokeProdTriggeringLambda)
         })
     })
 }
