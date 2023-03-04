@@ -11,7 +11,7 @@ const prod = 'prod';
 const uat = 'uat';
 const staging = 'staging';
 const dev = 'dev';
-const MalarkeyCdkPipeline = app => {
+const AwsAmplifyCdkPipeline = app => {
     let ghToken = null;
     let ghOwner = null;
     let ghRepo = null;
@@ -107,7 +107,6 @@ const MalarkeyCdkPipeline = app => {
                 installCommands: [
                     'ls',
                     'echo $PWD',
-                    'cd webtool',
                     'npm install -g aws-cdk'
                 ],
                 commands: [
@@ -115,7 +114,7 @@ const MalarkeyCdkPipeline = app => {
                     'npm ci --legacy-peer-deps',
                     'npm run build',
                     'cdk synth'],
-                primaryOutputDirectory: 'webtool/_cdk/cdk.out'
+                primaryOutputDirectory: '_cdk/cdk.out'
             })
         })
 
@@ -235,4 +234,4 @@ const MalarkeyCdkPipeline = app => {
 }
 
 const app = new cdk.App();
-MalarkeyCdkPipeline(app);
+AwsAmplifyCdkPipeline(app);
