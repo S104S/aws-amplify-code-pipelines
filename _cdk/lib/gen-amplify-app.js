@@ -23,7 +23,7 @@ const AmplifyViaCdkApp = (parentStage, props) => {
 
     const amplifyApp = new App(appStack, `${clientPipelineStage}AmplifyApp`, {
         appName: `${clientPipelineStage}`,
-        basicAuth: BasicAuth.fromCredentials('admin', cdk.SecretValue.secretsManager("hello-world-amplify-pwd")),
+        basicAuth: BasicAuth.fromCredentials('admin', cdk.SecretValue.secretsManager("aws-amplify-pipelines-password")),
         sourceCodeProvider: new GitHubSourceCodeProvider({
             owner: ghOwner,
             repository: ghRepo,
