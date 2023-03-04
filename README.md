@@ -1,3 +1,3 @@
-#TSR-Admin
+# AWS Amplify deployment with CodePipelines
 
-###A web app for TSR system admins to manage clients using the TSR System
+### A demo of how you can deploy your Amplify app with CodePipelines
